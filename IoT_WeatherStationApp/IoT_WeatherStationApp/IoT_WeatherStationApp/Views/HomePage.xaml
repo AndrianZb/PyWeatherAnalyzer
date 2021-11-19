@@ -63,7 +63,8 @@
 
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                     Command="{Binding RefreshCommand}">
+                     Command="{Binding RefreshCommand}"
+                     RefreshColor="Red">
             <CarouselView ItemTemplate="{StaticResource pageDataTemplateSelector}"
                           ItemsSource="{Binding CarouselPages}">
                 
