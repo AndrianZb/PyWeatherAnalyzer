@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             xmlns:viewmodels="clr-namespace:IoT_WeatherStationApp.ViewModels" xmlns:local="clr-namespace:IoT_WeatherStationApp.Services"
+             x:Class="IoT_WeatherStationApp.Views.HomePage"
+             Title="Recent Temperature History">
+    <ContentPage.Resources>
+        
+        <DataTemplate x:Key="Page1">
+            <ScrollView BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                <StackLayout BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                    <Frame Padding="12"
+                           BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                        <Label Text="Line Chart"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Dark={StaticResource TextColorDark}, Light={StaticResource TextColorLight}}"/>
+                    </Frame>
+                    <microcharts:ChartView Chart="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:HomePageViewModel}}, Path=LineChart}"
+                                           HeightRequest="300"/>
+                </StackLayout>
+            </ScrollView>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Page2">
+            <ScrollView BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                <StackLayout BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                    <Frame Padding="12"
+                           BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                        <Label Text="Bar Chart"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Dark={StaticResource TextColorDark}, Light={StaticResource TextColorLight}}"/>
+                    </Frame>
+                    <microcharts:ChartView Chart="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:HomePageViewModel}}, Path=BarChart}"
+                                           HeightRequest="300"/>
+                </StackLayout>
+            </ScrollView>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Page3">
+            <ScrollView BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                <StackLayout BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                    <Frame Padding="12"
+                           BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                        <Label Text="Pie Chart"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Dark={StaticResource TextColorDark}, Light={StaticResource TextColorLight}}"/>
+                    </Frame>
+                    <microcharts:ChartView Chart="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:HomePageViewModel}}, Path=PieChart}"
+                                           HeightRequest="300"/>
+                </StackLayout>
+            </ScrollView>
+        </DataTemplate>
+
+        <local:PageDataTemplateSelector x:Key="pageDataTemplateSelector"
+                                        Page1="{StaticResource Page1}"
+                                        Page2="{StaticResource Page2}"
+                                        Page3="{StaticResource Page3}"/>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     Command="{Binding RefreshCommand}">
+            <CarouselView ItemTemplate="{StaticResource pageDataTemplateSelector}"
+                          ItemsSource="{Binding CarouselPages}">
+                
+            </CarouselView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

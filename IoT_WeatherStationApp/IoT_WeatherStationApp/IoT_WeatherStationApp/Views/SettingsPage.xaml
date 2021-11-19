@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:IoT_WeatherStationApp.ViewModels"
+             x:Class="IoT_WeatherStationApp.Views.SettingsPage"
+             Title="Settings">
+
+    <ContentPage.BindingContext>
+        <viewmodels:SettingsPageViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame Padding="18" BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}">
+                <StackLayout Orientation="Horizontal"
+                             BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDarkSecondary}, Light={StaticResource BackgroundColorLight}}"
+                             Padding="12, 0, 12, 0"
+                             Spacing="24">
+                    <Image Source="icon_daynight.png"
+                           HeightRequest="25"
+                           HorizontalOptions="Start"/>
+                    <Label Text="Dark Theme"
+                           FontSize="Large" 
+                           HorizontalOptions="StartAndExpand"
+                           TextColor="{AppThemeBinding Dark={StaticResource TextColorDark}, Light={StaticResource TextColorLight}}"/>
+                    <Switch IsToggled="{Binding DarkTheme}" 
+                            HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
